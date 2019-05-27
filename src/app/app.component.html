@@ -1,0 +1,66 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<a href='https://ithelp.ithome.com.tw/articles/10186854'>Angular2 模板與綁定－－互動的根本</a>
+<h1>DEMO</h1>
+<div class="special">Mental Model</div>
+<button [disabled]="!isValid">Save</button>
+<img [src]="imageUrl">
+<div [ngClass]="myClasses">[ngClass] binding to the classes property</div>
+<div [ngClass]="setMyClasses()">[ngClass] set to the classes property</div>
+
+<h1>綁定 Attribute、class、style</h1>
+<h2>Attribute binding (屬性綁定)</h2>
+<table border=1>
+  <!--  expression calculates colspan=2 -->
+  <tr><td [attr.colspan]="1 + 1">One-Two</td></tr>
+
+  <tr><td>Five</td><td>Six</td></tr>
+</table>
+<h2>Class binding</h2>
+<div [class.special]="isSpecial">The class binding is special</div>
+
+<!-- binding to `class.special` trumps the class attribute -->
+<div class="special" [class.special]="!isSpecial">This one is not so special</div>
+<h2>Style binding</h2>
+<button [style.color] = "isSpecial ? 'red': 'green'">Red</button>
+<button [style.background-color]="canSave ? 'cyan': 'grey'" >Save</button>
+<h1>事件綁定 (Event binding)</h1>
+<h2>一般的事件綁定</h2>
+<button (click)="onSave()">Save</button>
+<h2>自訂的事件綁定 用 Angular EventEmitter</h2>
+<div>{{temp}}</div>
+<div>{{temp2}}</div>
+<div [ngStyle]="{'color':'red'}">{{temp3}}</div>
+<button (click)="delete()">Delete</button>
+<h1>數據綁定</h1>
+<h2>Interpolation</h2>
+<div>{{title}}</div>
+<div>My favorite hero is: {{myHero}}</div>
+<p>The sum of 1 + 1 is {{1 + 1}}</p>
+<h1>Two Way Binding</h1>
+<input [value]="username" (input)="username = $event.target.value">
+<p>Hello {{username}}!</p>
+<app-custom-counter [(counter)]="counterValue"></app-custom-counter>
+<p>counterValue = {{counterValue}}</p>
+<h1>NgModal</h1>
+<h4>Selecting Number</h4>
+    <select type="number" [(ngModel)]="levelNum" (ngModelChange)="toNumber()">
+      <option *ngFor="let level of levels" [ngValue]="level.num">{{level.name}}</option>
+    </select>
+    {{levelNum}}
+
+    <hr>
+
+    <h4>Selecting object</h4>
+    <select type="number" [(ngModel)]="selectedLevel">
+      <option *ngFor="let level of levels" [ngValue]="level">{{level.name}}</option>
+    </select>
+    {{selectedLevel | json}}
+
+    <hr>
+
+    <h4>Selecting object with custom compare</h4>
+    <select type="number" [(ngModel)]="selectedLevelCustomCompare" [compareWith]="compareFn">
+      <option *ngFor="let level of levels" [ngValue]="level">{{level.name}}</option>
+    </select>
+    {{selectedLevelCustomCompare | json}}
+<router-outlet></router-outlet>
